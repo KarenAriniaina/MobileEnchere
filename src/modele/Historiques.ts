@@ -1,14 +1,17 @@
 import { useHistory } from "react-router";
 
-export class RechargerCompte {
-    montant: number;
 
-    public constructor(montant: number) {
+export class Historiques {
+    montant: number;
+    nomproduit: String;
+
+    public constructor(montant: number, nomproduit: String) {
         this.montant = montant;
+        this.nomproduit = nomproduit;
     }
 }
 
-export const recharger = async (r: RechargerCompte) => {
+export const Historique = async (r: Historiques) => {
     if (r.montant <= 0) return "Montant inferieur ou egale à 0";
     return await fetch(`http://localhost:8080/DemandeRechargement?montant=${r.montant}`, {
         method: 'POST',
@@ -16,7 +19,7 @@ export const recharger = async (r: RechargerCompte) => {
             'token': `${localStorage.getItem("token")}`,
             'idClient': `${localStorage.getItem("idClient")}`
         },
-        body: JSON.stringify({ 'montant': r.montant })
+        body: JSON.stringify({ 'montant': r.montant, 'nomproduit': r.nomproduit })
     }).then(res => res.json())
         .then(res => {
             if (res.erreur != null) {
@@ -27,3 +30,5 @@ export const recharger = async (r: RechargerCompte) => {
             }
         })
 }
+
+

@@ -34,6 +34,8 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 import RechargeCompte from './pages/Recharger';
+import { Historique } from './modele/Historiques';
+import HistoriqueClient from './pages/Historiques';
 
 setupIonicReact();
 
@@ -57,7 +59,12 @@ const App: React.FC = () => (
           <Route exact path="/">
             <Redirect to="/tab1" />
           </Route>
+          <Route exact path="/Historique">
+            <HistoriqueClient />
+          </Route>
         </IonRouterOutlet>
+
+
         <IonTabBar slot="bottom">
           <IonTabButton tab="tab1" href="/tab1">
             <IonIcon icon={triangle} />
@@ -74,6 +81,10 @@ const App: React.FC = () => (
           <IonTabButton tab="recharger" href="/RechargerCompte">
             <IonIcon icon={square} />
             <IonLabel>Recharger</IonLabel>
+          </IonTabButton>
+          <IonTabButton tab="Historique" href="/Historique">
+            <IonIcon icon={square} />
+            <IonLabel>Historique</IonLabel>
           </IonTabButton>
         </IonTabBar>
       </IonTabs>
