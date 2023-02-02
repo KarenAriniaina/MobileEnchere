@@ -1,29 +1,39 @@
-import { IonButton, IonContent, IonHeader, IonInput, IonItem, IonLabel, IonPage, IonText, IonTitle, IonToolbar } from '@ionic/react';
-import { useState } from 'react';
+import { IonButton, IonContent, IonHeader, IonInput, IonItem, IonLabel, IonPage, IonRefresher, IonRefresherContent, IonText, IonTitle, IonToolbar } from '@ionic/react';
+import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
+import Toolbar from '../components/Toolbar';
 import { recharger, RechargerCompte } from '../modele/RechargeCompte';
 
 const RechargeCompte: React.FC = () => {
+    if (localStorage.getItem("token") == null || localStorage.getItem("idClient") == null) {
+        window.location.assign("/Login");
+    }
     const [montant, setMontant] = useState<number>(0);
     const [wait, setWait] = useState<boolean>(false);
     const [response, setResponse] = useState<string>("");
-    const navige = useHistory();
-    const valider = (event:any) => {
+    // const navige = useHistory();
+    const valider = (event: any) => {
         event.preventDefault();
-        if (localStorage.getItem("token") == null || localStorage.getItem("idClient") == null) {
-            navige.push("/tab1");
-        }
+
         const r: RechargerCompte = new RechargerCompte(montant);
         setWait(true);
         recharger(r).then(res => setResponse(res));
         setWait(false);
     }
+    const refreshData = async (event: CustomEvent) => {
+        event.detail.complete();
+    };
+
     if (wait == true) {
         setResponse("Loading...");
     }
     return (
         <IonPage>
             <IonContent className="ion-padding">
+                <IonRefresher slot="fixed" onIonRefresh={refreshData}>
+                    <IonRefresherContent pullingText="Pull to refresh" refreshingText="Refreshing..." />
+                </IonRefresher>
+                <Toolbar />
                 <IonText color="muted">
                     <h2>Recharger compte</h2>
                 </IonText>

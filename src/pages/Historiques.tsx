@@ -1,75 +1,94 @@
-import { EnchereDetail, EnchereDetails } from '../modele/EnchereDetail';
-import { IonCol, IonContent, IonGrid, IonPage, IonRow, IonText } from '@ionic/react';
+import { EnchereDetail, ListeHistorique } from '../modele/EnchereDetail';
+import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCol, IonContent, IonGrid, IonPage, IonRefresher, IonRefresherContent, IonRow, IonText } from '@ionic/react';
 import { useEffect, useState } from 'react';
-
-const pers = [
-    {
-        nom: 'Voiture',
-        Categorie: 'Auto',
-        Prix: '20000',
-        Etat: '0'
-    }, {
-        nom: 'Voiture',
-        Categorie: 'Auto',
-        Prix: '500000',
-        Etat: '1'
-    }
-
-];
-
-//const r: EnchereDetail[] = new EnchereDetail('temp', 'temp', '120', 0);
+import { useHistory } from 'react-router';
+import Toolbar from '../components/Toolbar';
 
 const HistoriqueClient: React.FC = () => {
-    const [Listes, setListes] = useState<EnchereDetail[]>([]);
+    const [Listes, setListes] = useState<any[]>([]);
+    const [wait, setWait] = useState<string>("");
+    const navige = useHistory();
+    if (localStorage.getItem("token") == null || localStorage.getItem("idClient") == null) {
+        navige.push("/Login");
+    }
     useEffect(() => {
-        console.log("Miditra ato");
-        EnchereDetails().then(res => setListes(res));
-
+        if (localStorage.getItem("token") == null || localStorage.getItem("idClient") == null) {
+            window.location.assign("/Login");
+        }
+        else {
+            setWait("Loading...");
+            ListeHistorique().then(res => {
+                setListes(res.data);
+                setWait("");
+            });
+        }
     }, []);
+
+    const refreshData = async (event: CustomEvent) => {
+        setListes([]);
+        if (localStorage.getItem("token") == null || localStorage.getItem("idClient") == null) {
+            window.location.assign("/Login");
+        }
+        else {
+            setWait("Loading...");
+            ListeHistorique().then(res => {
+                setListes(res.data);
+                setWait("");
+            });
+        }
+        event.detail.complete();
+    };
     return (
         <IonPage>
             <IonContent className="ion-padding">
+                <IonRefresher slot="fixed" onIonRefresh={refreshData}>
+                    <IonRefresherContent pullingText="Pull to refresh" refreshingText="Refreshing..." />
+                </IonRefresher>
+                <Toolbar />
                 <IonText color="muted">
                     <h2 >Historique de vos encheres</h2>
                 </IonText>
-                <IonGrid fixed={true}>
-                    <IonRow>
-                        <IonCol>Nom produit</IonCol>
-                        <IonCol>Categorie</IonCol>
-                        <IonCol>Prix depart</IonCol>
-                        <IonCol>Status</IonCol>
-                    </IonRow>
-
-                    {Listes.map(element =><Data nom={element.nom} Categorie={element.Categorie} Prix={element.Prix} Status={element.Status} /> ) }
-                    
-
-
-
-                </IonGrid>
-
+                {Listes.map(element => <Data nom={element.nom} categorie={element.categorie} prixDepart={element.prixDepart} date={element.date} Status={element.Status} photo={element.photos[0]} />)}
+                {wait && <p style={{ color: 'red' }}>{wait}</p>}
             </IonContent>
         </IonPage>
     );
 }
 
-const Data: React.FC<EnchereDetail> = ({ nom, Categorie, Prix, Status }) => {
-
+const Data: React.FC<EnchereDetail> = ({ nom, categorie, prixDepart, date, Status, photo }) => {
+    let d1 = new Date(date);
+    let d2 = new Date();
+    let val = "en cours";
+    if (d2.getTime() > d1.getTime()) {
+        val = "terminé";
+    }
+    Status = val;
+    console.log(val);
+    if (val == "en cours") {
+        return (
+            <IonCard>
+                <img alt="Silhouette of mountains" src={photo} />
+                <IonCardHeader>
+                    <IonCardTitle>{nom}</IonCardTitle>
+                    <IonCardSubtitle>{categorie}</IonCardSubtitle>
+                </IonCardHeader>
+                <IonCardContent>
+                    <IonButton shape="round" color="success">{Status}</IonButton>
+                </IonCardContent>
+            </IonCard>
+        )
+    }
     return (
-        // Listes.map(encheres =>
-        //     < IonRow >
-        //         <IonCol> {encheres.nom}</IonCol>
-        //         <IonCol>{encheres.Categorie}</IonCol>
-        //         <IonCol>{encheres.Prix}</IonCol>
-        //         <IonCol>{encheres.Status}</IonCol>
-        //     </IonRow >
-        // )
-
-        < IonRow >
-            <IonCol>{nom}</IonCol>
-            <IonCol>{Categorie}</IonCol>
-            <IonCol>{Prix}</IonCol>
-            <IonCol>{Status}</IonCol>
-        </IonRow >
+        <IonCard>
+            <img alt="Silhouette of mountains" src={photo} />
+            <IonCardHeader>
+                <IonCardTitle>{nom}</IonCardTitle>
+                <IonCardSubtitle>{categorie}</IonCardSubtitle>
+            </IonCardHeader>
+            <IonCardContent>
+                <IonButton shape="round" color="warning">{Status}</IonButton>
+            </IonCardContent>
+        </IonCard>
     )
 
 }
