@@ -36,6 +36,9 @@ import './theme/variables.css';
 import RechargeCompte from './pages/Recharger';
 import { Historique } from './modele/Historiques';
 import HistoriqueClient from './pages/Historiques';
+import Login from './pages/Login';
+import InsertionEnchere from './pages/InsertionEnchere';
+import { Inscription } from './pages/Inscription';
 
 setupIonicReact();
 
@@ -57,27 +60,24 @@ const App: React.FC = () => (
             <RechargeCompte />
           </Route>
           <Route exact path="/">
-            <Redirect to="/tab1" />
+            <Redirect to="/Login" />
           </Route>
           <Route exact path="/Historique">
             <HistoriqueClient />
+          </Route>
+          <Route exact path="/Login">
+            <Login />
+          </Route>
+          <Route exact path="/InsertionEnchere">
+            <InsertionEnchere />
+          </Route>
+          <Route exact path="/Inscription">
+            <Inscription />
           </Route>
         </IonRouterOutlet>
 
 
         <IonTabBar slot="bottom">
-          <IonTabButton tab="tab1" href="/tab1">
-            <IonIcon icon={triangle} />
-            <IonLabel>Tab 1</IonLabel>
-          </IonTabButton>
-          <IonTabButton tab="tab2" href="/tab2">
-            <IonIcon icon={ellipse} />
-            <IonLabel>Tab 2</IonLabel>
-          </IonTabButton>
-          <IonTabButton tab="tab3" href="/tab3">
-            <IonIcon icon={square} />
-            <IonLabel>Tab 3</IonLabel>
-          </IonTabButton>
           <IonTabButton tab="recharger" href="/RechargerCompte">
             <IonIcon icon={square} />
             <IonLabel>Recharger</IonLabel>
@@ -85,6 +85,10 @@ const App: React.FC = () => (
           <IonTabButton tab="Historique" href="/Historique">
             <IonIcon icon={square} />
             <IonLabel>Historique</IonLabel>
+          </IonTabButton>
+          <IonTabButton tab="InsertionEnchere" href="/InsertionEnchere">
+            <IonIcon icon={square} />
+            <IonLabel>Insertion Enchere</IonLabel>
           </IonTabButton>
         </IonTabBar>
       </IonTabs>
