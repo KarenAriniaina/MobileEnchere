@@ -31,7 +31,7 @@ const InsertionEnchere: React.FC = () => {
     const uploadPhoto = async () => {
         const result = await Camera.getPhoto({
             quality: 20,
-            allowEditing: true,
+            allowEditing: false,
             resultType: CameraResultType.Base64,
             width: 100,
             height: 100
