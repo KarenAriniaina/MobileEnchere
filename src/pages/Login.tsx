@@ -8,8 +8,8 @@ import Toolbar from "../components/Toolbar";
 import { Client, login } from "../modele/Client";
 
 export const Login: React.FC = () => {
-    const [email, setEmail] = useState<string>("");
-    const [password, setpassword] = useState<string>("");
+    const [email, setEmail] = useState<string>("rabe@gmail.com");
+    const [password, setpassword] = useState<string>("raberabe");
     const [client, setClient] = useState<Client>(new Client("", "", "", "", ""));
     const [error, setError] = useState<string>("");
     const [statue, setStatue] = useState<boolean>(false);
