@@ -17,7 +17,9 @@ const RechargeCompte: React.FC = () => {
 
         const r: RechargerCompte = new RechargerCompte(montant);
         setWait(true);
-        recharger(r).then(res => setResponse(res));
+        recharger(r).then(res => {
+            setResponse(res)
+        });
         setWait(false);
     }
     const refreshData = async (event: CustomEvent) => {

@@ -9,7 +9,7 @@ export class Categorie {
 }
 
 export const ListeCategorie = async () => {
-    return await fetch("http://localhost:8080/Categories/").then(res => res.json())
+    return await fetch("https://serveurenchere2-production.up.railway.app/Categories/").then(res => res.json())
         .then(res => {
             console.log(res);
             return res

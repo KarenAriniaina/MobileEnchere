@@ -20,7 +20,7 @@ export const login = async (c: Client) => {
     var f=new FormData();
     f.append("email",c.email);
     f.append("mdp",c.mdp);
-    return await fetch(`http://localhost:8080/LoginClient/`, {
+    return await fetch(`https://serveurenchere2-production.up.railway.app/LoginClient/`, {
         method: 'POST',
         body: f,
     }).then(res => res.json())
@@ -45,7 +45,7 @@ export const inscription =async (c:Client)=>{
     f.append("email",c.email);
     f.append("mdp",c.mdp);
     f.append("nom",c.nom);
-    return await fetch(`http://localhost:8080/InscriptionClient/`, {
+    return await fetch(`https://serveurenchere2-production.up.railway.app/InscriptionClient/`, {
         method: 'POST',
         body: f,
     }).then(res => res.json())

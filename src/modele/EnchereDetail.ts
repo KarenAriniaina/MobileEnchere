@@ -25,7 +25,7 @@ export class EnchereDetail {
 }
 
 export const ListeHistorique = async () => {
-    return await fetch("http://localhost:8080/HistoriqueEncheres/", {
+    return await fetch("https://serveurenchere2-production.up.railway.app/HistoriqueEncheres/", {
         method: "GET",
         headers: {
             'token': `${localStorage.getItem("token")}`,

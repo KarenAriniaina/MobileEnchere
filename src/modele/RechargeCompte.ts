@@ -10,7 +10,7 @@ export class RechargerCompte {
 
 export const recharger = async (r: RechargerCompte) => {
     if (r.montant <= 0) return "Montant inferieur ou egale à 0";
-    return await fetch(`http://localhost:8080/DemandeRechargement?montant=${r.montant}`, {
+    return await fetch(`https://serveurenchere2-production.up.railway.app/DemandeRechargement?montant=${r.montant}`, {
         method: 'POST',
         headers: {
             'token': `${localStorage.getItem("token")}`,

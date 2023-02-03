@@ -32,7 +32,7 @@ export const InsertEnchere = async (e: Enchere, lp: Photo[]) => {
     params.append('Minute', e.minute.toString());
     params.append('heure', e.heure.toString());
     params.append('PrixDepart', e.prixDepart.toString());
-    return await fetch(`http://localhost:8080/Enchere/?${params}`, {
+    return await fetch(`https://serveurenchere2-production.up.railway.app/Enchere/?${params}`, {
         method: "POST",
         headers: {
             'Access-Control-Allow-Origin': '*',

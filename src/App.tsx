@@ -42,58 +42,63 @@ import { Inscription } from './pages/Inscription';
 
 setupIonicReact();
 
-const App: React.FC = () => (
-  <IonApp>
-    <IonReactRouter>
-      <IonTabs>
-        <IonRouterOutlet>
-          <Route exact path="/tab1">
-            <Tab1 />
-          </Route>
-          <Route exact path="/tab2">
-            <Tab2 />
-          </Route>
-          <Route path="/tab3">
-            <Tab3 />
-          </Route>
-          <Route path="/RechargerCompte">
-            <RechargeCompte />
-          </Route>
-          <Route exact path="/">
-            <Redirect to="/Login" />
-          </Route>
-          <Route exact path="/Historique">
-            <HistoriqueClient />
-          </Route>
-          <Route exact path="/Login">
-            <Login />
-          </Route>
-          <Route exact path="/InsertionEnchere">
-            <InsertionEnchere />
-          </Route>
-          <Route exact path="/Inscription">
-            <Inscription />
-          </Route>
-        </IonRouterOutlet>
+const App: React.FC = () => {
+  /*const OneSignalInit=()=>{
+    OneSignal.
+  }*/
+  return (
+    <IonApp>
+      <IonReactRouter>
+        <IonTabs>
+          <IonRouterOutlet>
+            <Route exact path="/tab1">
+              <Tab1 />
+            </Route>
+            <Route exact path="/tab2">
+              <Tab2 />
+            </Route>
+            <Route path="/tab3">
+              <Tab3 />
+            </Route>
+            <Route path="/RechargerCompte">
+              <RechargeCompte />
+            </Route>
+            <Route exact path="/">
+              <Redirect to="/Login" />
+            </Route>
+            <Route exact path="/Historique">
+              <HistoriqueClient />
+            </Route>
+            <Route exact path="/Login">
+              <Login />
+            </Route>
+            <Route exact path="/InsertionEnchere">
+              <InsertionEnchere />
+            </Route>
+            <Route exact path="/Inscription">
+              <Inscription />
+            </Route>
+          </IonRouterOutlet>
 
 
-        <IonTabBar slot="bottom">
-          <IonTabButton tab="recharger" href="/RechargerCompte">
-            <IonIcon icon={square} />
-            <IonLabel>Recharger</IonLabel>
-          </IonTabButton>
-          <IonTabButton tab="Historique" href="/Historique">
-            <IonIcon icon={square} />
-            <IonLabel>Historique</IonLabel>
-          </IonTabButton>
-          <IonTabButton tab="InsertionEnchere" href="/InsertionEnchere">
-            <IonIcon icon={square} />
-            <IonLabel>Insertion Enchere</IonLabel>
-          </IonTabButton>
-        </IonTabBar>
-      </IonTabs>
-    </IonReactRouter>
-  </IonApp>
-);
+          <IonTabBar slot="bottom">
+            <IonTabButton tab="recharger" href="/RechargerCompte">
+              <IonIcon icon={square} />
+              <IonLabel>Recharger</IonLabel>
+            </IonTabButton>
+            <IonTabButton tab="Historique" href="/Historique">
+              <IonIcon icon={square} />
+              <IonLabel>Historique</IonLabel>
+            </IonTabButton>
+            <IonTabButton tab="InsertionEnchere" href="/InsertionEnchere">
+              <IonIcon icon={square} />
+              <IonLabel>Insertion Enchere</IonLabel>
+            </IonTabButton>
+          </IonTabBar>
+        </IonTabs>
+      </IonReactRouter>
+    </IonApp>
+  );
+};
 
 export default App;
